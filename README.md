@@ -1,5 +1,7 @@
 Drop down terminal inspired by Tilda.
 
+GTK4 flavor: https://github.com/hkoosha/zoha
+
 ```
 $ zoha -h
 A drop down terminal inspired by Tilda
