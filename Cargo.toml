@@ -1,6 +1,6 @@
 [package]
 name = "zoha4"
-version = "0.0.1"
+version = "0.0.2"
 edition = "2021"
 authors = ["Koosha Hosseiny <i@koosha.io>"]
 description = "A drop down terminal inspired by Tilda, GTK4 flavor"

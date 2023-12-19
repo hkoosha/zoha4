@@ -354,12 +354,15 @@ pub fn add_tab(ctx: &Rc<RefCell<ZohaCtx>>,
         .borrow_mut()
         .insert(page, term.clone());
 
-    set_label(ctx, &term, page + 1);
-
     if let Some(idx) = idx {
         for _ in idx..page {
             move_tab(ctx, false);
         }
+    }
+
+    set_label(ctx, &term, page + 1);
+    for (i, t) in ctx.borrow().terminals.borrow().iter() {
+        set_label(ctx, t, *i + 1);
     }
 
     set_focus(ctx);
@@ -661,7 +664,7 @@ fn set_label(ctx: &Rc<RefCell<ZohaCtx>>,
             match term.get_cwd().map(|it| it.to_string_lossy().to_string()) {
                 None => notebook.set_tab_label_text(
                     &term.hbox,
-                    &format!("[{}/{}]", idx, term.tab_counter),
+                    &format!("[{}] - {}@?", idx, term.tab_counter),
                 ),
                 Some(cwd) => {
                     match ctx.borrow().cfg.display.tab_title_num_characters {
