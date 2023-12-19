@@ -266,8 +266,7 @@ pub fn list_monitors() -> eyre::Result<Vec<String>> {
 
     let mut monitors = vec![];
 
-    let mut i = 0usize;
-    for m in display.monitors().into_iter() {
+    for (i, m) in display.monitors().into_iter().enumerate() {
         match m {
             Ok(m) => {
                 match m.downcast_ref::<Monitor>() {
@@ -287,8 +286,6 @@ pub fn list_monitors() -> eyre::Result<Vec<String>> {
                 panic!("list mutated? {}", err);
             }
         }
-
-        i += 1;
     }
 
     return Ok(monitors);

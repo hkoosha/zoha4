@@ -539,14 +539,12 @@ impl CfgDisplay {
 
                 match cfg_model.parse::<u8>() {
                     Ok(index) => {
-                        let mut i = 0;
-                        for m in display.monitors().into_iter() {
+                        for (i, m) in display.monitors().into_iter().enumerate() {
                             let m = m.expect("failed to get monitor");
                             let m = m.downcast::<Monitor>().expect("failed to cast to Monitor");
-                            if i == index {
+                            if i == (index as usize) {
                                 return m;
                             }
-                            i += 1;
                         }
                     }
                     Err(_) => {

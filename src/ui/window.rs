@@ -276,7 +276,7 @@ pub fn remove_page_by_hbox(ctx: &Rc<RefCell<ZohaCtx>>,
         on_page_removed(ctx, page);
     }
 
-    set_focus(&ctx);
+    set_focus(ctx);
 }
 
 pub fn add_tab(ctx: &Rc<RefCell<ZohaCtx>>,
@@ -362,7 +362,7 @@ pub fn add_tab(ctx: &Rc<RefCell<ZohaCtx>>,
         }
     }
 
-    set_focus(&ctx);
+    set_focus(ctx);
 }
 
 pub fn close_tab(ctx: &Rc<RefCell<ZohaCtx>>) {
@@ -372,7 +372,7 @@ pub fn close_tab(ctx: &Rc<RefCell<ZohaCtx>>) {
         term.kill();
     }
 
-    set_focus(&ctx);
+    set_focus(ctx);
 }
 
 pub fn move_backward(ctx: &Rc<RefCell<ZohaCtx>>) {
@@ -425,7 +425,7 @@ pub fn move_tab(ctx: &Rc<RefCell<ZohaCtx>>,
 
     ctx.borrow().get_notebook().unwrap().reorder_child(&page, Some(new_index));
 
-    set_focus(&ctx);
+    set_focus(ctx);
 }
 
 pub fn goto_next(ctx: &Rc<RefCell<ZohaCtx>>) {
@@ -443,7 +443,7 @@ pub fn goto_next(ctx: &Rc<RefCell<ZohaCtx>>) {
         }
     }
 
-    set_focus(&ctx);
+    set_focus(ctx);
 }
 
 pub fn goto_previous(ctx: &Rc<RefCell<ZohaCtx>>) {
@@ -460,7 +460,7 @@ pub fn goto_previous(ctx: &Rc<RefCell<ZohaCtx>>) {
         }
     }
 
-    set_focus(&ctx);
+    set_focus(ctx);
 }
 
 pub fn goto_last(ctx: &Rc<RefCell<ZohaCtx>>) {
@@ -474,7 +474,7 @@ pub fn goto_last(ctx: &Rc<RefCell<ZohaCtx>>) {
         }
     }
 
-    set_focus(&ctx);
+    set_focus(ctx);
 }
 
 pub fn goto_n(ctx: &Rc<RefCell<ZohaCtx>>,
@@ -490,7 +490,7 @@ pub fn goto_n(ctx: &Rc<RefCell<ZohaCtx>>,
         }
     }
 
-    set_focus(&ctx);
+    set_focus(ctx);
 }
 
 pub fn adjust_tab_bar(ctx: &Rc<RefCell<ZohaCtx>>) {
@@ -718,21 +718,12 @@ pub fn set_focus(ctx: &Rc<RefCell<ZohaCtx>>) {
                     eprintln!("no active page on notebook on window focus");
                 }
                 Some(page) => {
-                    match ctx.try_borrow() {
-                        Ok(ctx) => {
-                            match ctx.terminals.try_borrow() {
-                                Ok(ctx) => {
-                                    match ctx.get(&page) {
-                                        None => {}
-                                        Some(term) => {
-                                            term.vte.grab_focus();
-                                        }
-                                    }
-                                }
-                                Err(_) => {}
+                    if let Ok(ctx) = ctx.try_borrow() {
+                        if let Ok(ctx) = ctx.terminals.try_borrow() {
+                            if let Some(term) = ctx.get(&page) {
+                                term.vte.grab_focus();
                             }
                         }
-                        Err(_) => {}
                     }
                 }
             }

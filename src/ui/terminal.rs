@@ -18,7 +18,7 @@ use gtk4::prelude::ScrollableExt;
 use gtk4::prelude::WidgetExt;
 use gtk4::Scrollbar;
 use gtk4::traits::BoxExt;
-use log::{debug, error};
+use log::debug;
 use vte4::{Format, TerminalExt, TerminalExtManual};
 use vte4::PtyFlags;
 use vte4::Terminal;
@@ -87,8 +87,8 @@ impl ZohaTerminal {
             vte.set_color_cursor(Some(&cfg.color.cursor));
             vte.set_color_cursor_foreground(Some(&cfg.color.bg));
 
-            let owned: Vec<RGBA> = cfg.color.user_pallet().into_iter().map(|it| it).collect();
-            let collected: Vec<&RGBA> = owned.iter().map(|it| it).collect();
+            let owned: Vec<RGBA> = cfg.color.user_pallet().into_iter().collect();
+            let collected: Vec<&RGBA> = owned.iter().collect();
             vte.set_colors(
                 Some(&cfg.color.fg),
                 Some(&cfg.color.bg),
@@ -234,9 +234,7 @@ impl ZohaTerminal {
     }
 
     pub fn get_cwd(&self) -> Option<PathBuf> {
-        if self.ctx.borrow().pid.is_none() {
-            return None;
-        }
+        self.ctx.borrow().pid?;
 
         let pid: i32 = self.ctx.borrow().pid.as_ref().unwrap().0;
         let cwd_path: String = format!("/proc/{}/cwd", pid);
@@ -268,8 +266,9 @@ impl ZohaTerminal {
             bg.set_alpha(1.0);
         }
 
-        let owned: Vec<RGBA> = self.ctx.borrow().ctx.borrow().cfg.color.user_pallet().into_iter().map(|it| it).collect();
-        let collected: Vec<&RGBA> = owned.iter().map(|it| it).collect();
+        let owned: Vec<RGBA> =
+            self.ctx.borrow().ctx.borrow().cfg.color.user_pallet().into_iter().collect();
+        let collected: Vec<&RGBA> = owned.iter().collect();
         self.vte.set_colors(
             Some(&self.ctx.borrow().ctx.borrow().cfg.color.fg),
             Some(&bg),
