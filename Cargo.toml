@@ -7,6 +7,7 @@ description = "A drop down terminal inspired by Tilda, GTK4 flavor"
 homepage = "https://zoha.rs"
 license = "GPL-3.0"
 readme = "README.md"
+repository = "https://github.com/hkoosha/zoha4"
 
 [features]
 # default = ["hack", "x11", "wayland"]
