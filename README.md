@@ -1,6 +1,6 @@
 Drop down terminal inspired by Tilda.
 
-GTK4 flavor: https://github.com/hkoosha/zoha
+(GTK3 flavor: [hkoosha/zoha](https://github.com/hkoosha/zoha))
 
 ```
 $ zoha -h
