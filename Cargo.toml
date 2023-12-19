@@ -1,0 +1,42 @@
+[package]
+name = "zoha4"
+version = "0.0.1"
+edition = "2021"
+authors = ["Koosha Hosseiny <i@koosha.io>"]
+description = "A drop down terminal inspired by Tilda, for GTK4"
+homepage = "https://zoha.rs"
+license = "GPL-3.0"
+readme = "README.md"
+
+[features]
+default = ["hack", "x11", "wayland"]
+"hack" = []
+"wayland" = []
+"x11" = []
+
+[dependencies]
+log = "0.4.20"
+pretty_env_logger = "0.5.0"
+
+eyre = "0.6"
+thiserror = "1.0"
+
+serde = { version = "1.0", features = ["derive"] }
+toml = "0.8"
+
+dirs = "5.0.1"
+clap = { version = "4.4.11", features = ["derive"] }
+
+gtk4 = "0.7.3"
+gdk4 = "0.7.3"
+gdk4-x11 = "0.7.2"
+gdk4-wayland = "0.7.2"
+glib = "0.18.4"
+pango = { version = "0.18.3", features = ["v1_52"] }
+
+vte4 = { package = "zoha-vte4",  version = "0.0.2" }
+
+device_query = "1.1.3"
+dbus = "0.9.7"
+dbus-crossroads = "0.5.2"
+
