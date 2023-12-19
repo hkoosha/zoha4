@@ -18,7 +18,7 @@ use gtk4::prelude::ScrollableExt;
 use gtk4::prelude::WidgetExt;
 use gtk4::Scrollbar;
 use gtk4::traits::BoxExt;
-use log::debug;
+use log::{debug, error};
 use vte4::{Format, TerminalExt, TerminalExtManual};
 use vte4::PtyFlags;
 use vte4::Terminal;
@@ -235,7 +235,6 @@ impl ZohaTerminal {
 
     pub fn get_cwd(&self) -> Option<PathBuf> {
         if self.ctx.borrow().pid.is_none() {
-            eprintln!("pid missing on term");
             return None;
         }
 
