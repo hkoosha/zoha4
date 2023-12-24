@@ -260,7 +260,6 @@ pub fn remove_page_by_hbox(ctx: &Rc<RefCell<ZohaCtx>>,
             );
 
             notebook.remove_page(page);
-            adjust_tab_bar(ctx);
 
             page
         }
@@ -276,6 +275,7 @@ pub fn remove_page_by_hbox(ctx: &Rc<RefCell<ZohaCtx>>,
         on_page_removed(ctx, page);
     }
 
+    adjust_tab_bar(ctx);
     set_focus(ctx);
 }
 
