@@ -32,7 +32,7 @@ clap = { version = "4.4.11", features = ["derive"] }
 gtk4 = "0.7.3"
 gdk4 = "0.7.3"
 gdk4-x11 = "0.7.2"
-gdk4-wayland = "0.7.2"
+gdk4-wayland = "0.8.0"
 glib = "0.18.4"
 pango = { version = "0.18.3", features = ["v1_52"] }
 
