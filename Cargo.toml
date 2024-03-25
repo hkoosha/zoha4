@@ -34,7 +34,7 @@ gdk4 = "0.7.3"
 gdk4-x11 = "0.7.2"
 gdk4-wayland = "0.7.2"
 glib = "0.18.4"
-pango = { version = "0.18.3", features = ["v1_52"] }
+pango = { version = "0.19.3", features = ["v1_52"] }
 
 vte4 = { package = "zoha-vte4",  version = "0.0.2" }
 
