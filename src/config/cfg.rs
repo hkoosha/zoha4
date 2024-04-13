@@ -1,18 +1,22 @@
-use std::cmp::{max, min};
+use std::cmp::max;
+use std::cmp::min;
 use std::collections::HashSet;
-use std::fmt::{Display, Formatter};
+use std::fmt::Display;
+use std::fmt::Formatter;
 use std::fs;
 use std::os::unix::fs::PermissionsExt;
-use std::path::{Path, PathBuf};
+use std::path::Path;
+use std::path::PathBuf;
 use std::str::FromStr;
 
-use gdk4::{Monitor, RGBA};
-use gdk4::prelude::MonitorExt;
-use gdk4::traits::DisplayExt;
+use gdk4::Monitor;
+use gdk4::RGBA;
+use gdk4::prelude::{DisplayExt, MonitorExt};
 #[allow(unused_imports)] // IntelliJ goes bananas without this.
 use glib::bitflags::Flags;
-use glib::Cast;
-use gtk4::{accelerator_parse, PositionType};
+use glib::prelude::Cast;
+use gtk4::accelerator_parse;
+use gtk4::PositionType;
 use pango::FontDescription;
 use serde::Deserialize;
 use thiserror::Error;
@@ -295,6 +299,7 @@ struct RawCfgTerminal {
 struct RawCfgBehavior {
     terminal_exit_behavior: Option<TerminalExitBehavior>,
     last_tab_exit_behavior: Option<LastTabExitBehavior>,
+    hide_on_focus_loss: Option<bool>,
     // prompt_on_exit: Option<bool>,
 }
 
@@ -673,6 +678,7 @@ impl CfgTerminal {
 pub struct CfgBehavior {
     pub terminal_exit_behavior: TerminalExitBehavior,
     pub last_tab_exit_behavior: LastTabExitBehavior,
+    pub hide_on_focus_loss: bool,
     // pub prompt_on_exit: bool,
 }
 
@@ -708,7 +714,7 @@ mod defaults {
     pub(super) const ALWAYS_ON_TOP: bool = true;
     pub(super) const STICKY: bool = true;
     pub(super) const FULLSCREEN: bool = false;
-    pub(super) const BG_COLOR: &str = "rgba(0,0,0,0.95)";
+    pub(super) const BG_COLOR: &str = "rgba(0,0,0,0.85)";
     pub(super) const FG_COLOR: &str = "rgba(255,255,255,1.0)";
     pub(super) const CURSOR_COLOR: &str = "rgba(0,0,0,1.0)";
     pub(super) const TITLE: &str = "Zoha";
@@ -724,8 +730,8 @@ mod defaults {
     pub(super) const TAB_NUM_CHARS: i8 = 25;
     // pub(super) const PROMPT_ON_EXIT: bool = false;
     pub(super) const TAB_SCROLL_WRAP: bool = true;
-
     pub(super) const TOGGLE_KEYCODE: &str = "F1";
+    pub(super) const HIDE_ON_FOCUS_LOSS: bool = false;
 
     pub(super) const ACTION_TAB_ADD: &str = "<Ctrl><Shift>t";
     pub(super) const ACTION_TAB_CLOSE: &str = "<Ctrl><Shift>w";
@@ -1073,6 +1079,8 @@ impl ZohaCfg {
                             .unwrap_or(TerminalExitBehavior::ExitTerminal),
                         last_tab_exit_behavior: raw.behavior.last_tab_exit_behavior
                             .unwrap_or(LastTabExitBehavior::RestartTerminal),
+                        hide_on_focus_loss: raw.behavior.hide_on_focus_loss
+                            .unwrap_or(HIDE_ON_FOCUS_LOSS),
                         // prompt_on_exit: raw.behavior.prompt_on_exit
                         //     .unwrap_or(PROMPT_ON_EXIT),
                     },
@@ -1185,6 +1193,7 @@ impl Default for ZohaCfg {
             behavior: CfgBehavior {
                 terminal_exit_behavior: TerminalExitBehavior::ExitTerminal,
                 last_tab_exit_behavior: LastTabExitBehavior::RestartTerminal,
+                hide_on_focus_loss: HIDE_ON_FOCUS_LOSS,
                 // prompt_on_exit: PROMPT_ON_EXIT,
             },
             #[cfg(feature = "hack")]

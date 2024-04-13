@@ -9,15 +9,14 @@ use std::string::ToString;
 
 use gdk4::gio;
 use gdk4::RGBA;
-use glib::ObjectExt;
 use glib::Pid;
+use glib::prelude::ObjectExt;
 use glib::SignalHandlerId;
 use glib::SpawnFlags;
 use gtk4::Orientation;
-use gtk4::prelude::ScrollableExt;
+use gtk4::prelude::{BoxExt, ScrollableExt};
 use gtk4::prelude::WidgetExt;
 use gtk4::Scrollbar;
-use gtk4::traits::BoxExt;
 use log::debug;
 use vte4::{Format, TerminalExt, TerminalExtManual};
 use vte4::PtyFlags;

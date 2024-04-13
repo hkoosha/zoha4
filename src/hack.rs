@@ -119,7 +119,7 @@ pub fn list_keycodes() -> Vec<&'static str> {
 
 fn check_and_send() {
     unsafe {
-        let _ = LOCK.lock();
+        let _hold = LOCK.lock();
 
         if PUSHED.is_none() {
             PUSHED = Some(HashSet::new());
@@ -142,7 +142,7 @@ fn init_keycode(keys: &Vec<String>) -> eyre::Result<()> {
     let mut conn_error: Option<Error> = None;
 
     unsafe {
-        let _ = LOCK.lock();
+        let _hold = LOCK.lock();
 
         if KEYCODES.is_some() {
             keycode_already_set = true;
