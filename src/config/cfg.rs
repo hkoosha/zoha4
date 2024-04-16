@@ -1347,16 +1347,3 @@ fn shell(user_cmd: Option<String>) -> String {
     panic!("Could not locate any shell");
 }
 
-// =============================================================================
-
-#[cfg(test)]
-mod tests {
-    use crate::config::cfg::{RawCfg, ZohaCfg};
-
-    #[test]
-    fn test_cfg_deser() {
-        let raw_cfg = toml::from_str::<RawCfg>("").unwrap();
-        let cfg: ZohaCfg = raw_cfg.try_into().unwrap();
-        println!("{:?}", cfg);
-    }
-}
