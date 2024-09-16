@@ -33,7 +33,7 @@ gtk4 = "0.8.1"
 gdk4 = "0.8.1"
 gdk4-x11 = "0.8.1"
 gdk4-wayland = "0.8.1"
-glib = "0.19.4"
+glib = "0.20.3"
 pango = { version = "0.19.3", features = ["v1_52"] }
 
 vte4 = { package = "vte4",  version = "0.7.1" }
