@@ -30,7 +30,7 @@ dirs = "5.0"
 clap = { version = "4.5", features = ["derive"] }
 
 gtk4 = "0.8.1"
-gdk4 = "0.8.1"
+gdk4 = "0.11.5"
 gdk4-x11 = "0.8.1"
 gdk4-wayland = "0.8.1"
 glib = "0.19.4"
