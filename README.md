@@ -1,3 +1,9 @@
+# DEPRECATED
+
+Gtk4 flavor is no longer maintained
+
+# Zoha GTK4
+
 Drop down terminal inspired by Tilda.
 
 (GTK3 flavor: [hkoosha/zoha](https://github.com/hkoosha/zoha))
