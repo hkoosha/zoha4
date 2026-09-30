@@ -36,7 +36,7 @@ gdk4-wayland = "0.8.1"
 glib = "0.19.4"
 pango = { version = "0.19.3", features = ["v1_52"] }
 
-vte4 = { package = "vte4",  version = "0.7.1" }
+vte4 = { package = "vte4",  version = "0.8.0" }
 
 dbus = "0.9"
 dbus-crossroads = "0.5"
